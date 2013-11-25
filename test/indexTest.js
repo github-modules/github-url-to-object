@@ -34,4 +34,10 @@ describe("github-url-to-object", function() {
     assert.equal(obj.repo, 'bar');
   });
 
+  it("handles git@ URLs", function() {
+    var obj = gh("git@github.com:heroku/heroku-flags.git");
+    assert.equal(obj.user, 'heroku');
+    assert.equal(obj.repo, 'heroku-flags');
+  });
+
 });
