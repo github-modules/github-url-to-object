@@ -46,7 +46,14 @@ describe("github-url-to-object", function() {
     assert.equal(obj.repo, 'heroku-flags')
   })
 
-  it("returns null for invalid URLs", function() {
+  it("returns null if url is falsy", function() {
+    assert.equal(gh(), null)
+    assert.equal(gh(null), null)
+    assert.equal(gh(undefined), null)
+    assert.equal(gh(""), null)
+  })
+
+  it("returns null for non-github URLs", function() {
     var obj = gh("https://bitbucket.com/other/thing")
     assert.equal(obj, null)
   })

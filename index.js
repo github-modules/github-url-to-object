@@ -2,6 +2,8 @@ var isUrl = require('is-url')
 
 module.exports = function(url) {
 
+  if (!url) return null
+
   // bail if given a non-github URL
   if (isUrl(url) && !url.match(/github\.com/)) return null
 
