@@ -10,23 +10,35 @@ npm install github-url-to-object --save
 
 ## Usage
 
+Pass whatever flavor of github URL you like:
+
 ```js
-require('github-url-to-object')('https://github.com/foo/bar.git');
-// -> {user: 'foo', repo: 'git'}
+var gh = require('github-url-to-object')
+
+gh('user/repo')
+gh('https://github.com/monkey/business')
+gh('https://github.com/monkey/business.git')
+gh('http://github.com/monkey/business')
+gh('git://github.com/monkey/business.git')
 ```
+
+Here's what you'll get back:
+
+```js
+{
+  user: 'monkey',
+  repo: 'business'
+}
+```
+
+If you provide a non-github URL or a falsy value, you'll get `null` back.
 
 ## Test
 
 ```sh
 npm test
-
-✓ extracts username and repo from github URL
-✓ handles URLs without .git at the end
-✓ handles http URLs
-✓ handles https URLs
-✓ handles git URLs
-✓ handles shorthand user/repo paths
 ```
+
 ## License
 
 WTFPL
