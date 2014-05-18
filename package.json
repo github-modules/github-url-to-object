@@ -1,6 +1,6 @@
 {
   "name": "github-url-to-object",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Extract user, repo, and other interesting properties from GitHub URLs",
   "main": "index.js",
   "scripts": {
@@ -21,6 +21,9 @@
     "url": "https://github.com/zeke/github-url-to-object/issues"
   },
   "dependencies": {
-    "is-url": "^1.0.0"
+    "is-url": "^1.1.0"
+  },
+  "devDependencies": {
+    "mocha": "^1.19.0"
   }
 }
