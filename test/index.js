@@ -4,10 +4,28 @@ var gh = require("../index")
 
 describe("github-url-to-object", function() {
 
-  it("extracts username and repo from github URL", function() {
-    var obj = gh("https://github.com/heroku/heroku-buildpack-nodejs.git")
-    assert.equal(obj.user, 'heroku')
-    assert.equal(obj.repo, 'heroku-buildpack-nodejs')
+  describe("properties", function() {
+    var obj
+
+    before(function(){
+      obj = gh("git://github.com/foo-master/party-time.git")
+    })
+
+    it("user", function() {
+      assert.equal(obj.user, 'foo-master')
+    })
+
+    it("repo", function() {
+      assert.equal(obj.repo, 'party-time')
+    })
+
+    it("tarball_url", function() {
+      assert.equal(obj.tarball_url, "https://api.github.com/repos/foo-master/party-time/tarball")
+    })
+
+    it("https_url", function() {
+      assert.equal(obj.https_url, 'https://github.com/foo-master/party-time')
+    })
   })
 
   it("handles URLs without .git at the end", function() {
