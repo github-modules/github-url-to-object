@@ -1,6 +1,7 @@
-# github-url-to-object
+# github-url-to-object  [![Build Status](https://travis-ci.org/zeke/github-url-to-object.png?branch=master)](https://travis-ci.org/zeke/github-url-to-object)
 
-Extract username and repo name from various flavors of GitHub URLs.
+A node module that extracts useful properties like `user` and
+`repo` from various flavors of GitHub URLs.
 
 ## Installation
 
@@ -15,30 +16,33 @@ Pass whatever flavor of github URL you like:
 ```js
 var gh = require('github-url-to-object')
 
-gh('user/repo')
+gh('monkey/business')
 gh('https://github.com/monkey/business')
 gh('https://github.com/monkey/business.git')
 gh('http://github.com/monkey/business')
 gh('git://github.com/monkey/business.git')
 ```
 
-Here's what you'll get back:
+Here's what you'll get:
 
 ```js
 {
   user: 'monkey',
-  repo: 'business'
+  repo: 'business',
+  https_url: 'https://github.com/monkey/business',
+  tarball_url: 'https://api.github.com/repos/monkey/business/tarball'
 }
 ```
 
-If you provide a non-github URL or a falsy value, you'll get `null` back.
+If you provide a non-github URL or a falsy value, you'll get `null`.
 
 ## Test
 
 ```sh
+npm install
 npm test
 ```
 
 ## License
 
-WTFPL
+MIT

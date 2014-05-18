@@ -1,10 +1,10 @@
 {
   "name": "github-url-to-object",
-  "version": "0.5.0",
-  "description": "Extract username and repo name from various flavors of GitHub URLs",
+  "version": "0.5.1",
+  "description": "Extract user, repo, and other interesting properties from GitHub URLs",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./test/*.js"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
     "repo"
   ],
   "author": "zeke",
-  "license": "WTFPL",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/zeke/github-url-to-object/issues"
   },
