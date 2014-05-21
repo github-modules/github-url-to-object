@@ -31,6 +31,7 @@ Here's what you'll get:
   repo: 'business',
   https_url: 'https://github.com/monkey/business',
   tarball_url: 'https://api.github.com/repos/monkey/business/tarball'
+  travis_url: 'https://travis-ci.org/monkey/business',
 }
 ```
 

@@ -18,5 +18,6 @@ module.exports = function(repo_url) {
 
   obj.tarball_url = "https://api.github.com/repos/" + obj.user + "/" + obj.repo + "/tarball"
   obj.https_url = "https://github.com/" + obj.user + "/" + obj.repo
+  obj.travis_url = "https://travis-ci.org/" + obj.user + "/" + obj.repo
   return obj
 }

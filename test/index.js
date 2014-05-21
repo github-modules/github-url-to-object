@@ -12,11 +12,11 @@ describe("github-url-to-object", function() {
     })
 
     it("user", function() {
-      assert.equal(obj.user, 'foo-master')
+      assert.equal(obj.user, "foo-master")
     })
 
     it("repo", function() {
-      assert.equal(obj.repo, 'party-time')
+      assert.equal(obj.repo, "party-time")
     })
 
     it("tarball_url", function() {
@@ -24,8 +24,13 @@ describe("github-url-to-object", function() {
     })
 
     it("https_url", function() {
-      assert.equal(obj.https_url, 'https://github.com/foo-master/party-time')
+      assert.equal(obj.https_url, "https://github.com/foo-master/party-time")
     })
+
+    it("travis_url", function() {
+      assert.equal(obj.travis_url, "https://travis-ci.org/foo-master/party-time")
+    })
+
   })
 
   it("handles URLs without .git at the end", function() {
