@@ -51,7 +51,7 @@ describe("github-url-to-object", function() {
     assert.equal(obj.repo, 'outlet')
   })
 
-  it("handles git URLs", function() {
+  it("handles git:// URLs", function() {
     var obj = gh("git://github.com/foo/bar.git")
     assert.equal(obj.user, 'foo')
     assert.equal(obj.repo, 'bar')
@@ -67,6 +67,12 @@ describe("github-url-to-object", function() {
     var obj = gh("git@github.com:heroku/heroku-flags.git")
     assert.equal(obj.user, 'heroku')
     assert.equal(obj.repo, 'heroku-flags')
+  })
+
+  it("handles deep URLs", function() {
+    var obj = gh("https://github.com/zeke/ruby-rails-sample/blob/b1e1000fedb6ca448dd78702de4fc78dedfee48c/app.json")
+    assert.equal(obj.user, 'zeke')
+    assert.equal(obj.repo, 'ruby-rails-sample')
   })
 
   it("returns null if url is falsy", function() {

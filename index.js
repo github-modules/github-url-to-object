@@ -1,20 +1,32 @@
-var url = require('url')
-var isUrl = require('is-url')
+"use strict"
+
+var url = require("url")
+var util = require("util")
+var isUrl = require("is-url")
 
 module.exports = function(repo_url) {
+  var obj = {}
 
   if (!repo_url) return null
 
-  // bail if given a non-github URL
-  if (isUrl(repo_url) && url.parse(repo_url).hostname != "github.com") return null
+  var shorthand = repo_url.match(/^([\w-_]+)\/([\w-_\.]+)$/)
+  var antiquated = repo_url.match(/^git@[\w-_\.]+:([\w-_]+)\/([\w-_\.]+)$/)
 
-  var re = /^(?:https?:\/\/|git:\/\/)?(?:[^@]+@)?(gist.github.com|github.com)[:\/]([^\/]+\/[^\/]+?|[0-9]+)$/
-  var match = re.exec(repo_url.replace(/\.git$/, ''));
-
-  // support shorthand URLs
-  var parts = match ? match[2].split('/') : repo_url.split('/')
-
-  var obj = {user: parts[0], repo: parts[1]}
+  if (shorthand) {
+    obj.user = shorthand[1]
+    obj.repo = shorthand[2]
+  } else if (antiquated) {
+    obj.user = antiquated[1]
+    obj.repo = antiquated[2].replace(/\.git$/i, "")
+  } else {
+    if (!isUrl(repo_url)) return null
+    var parsedURL = url.parse(repo_url)
+    if (parsedURL.hostname != "github.com") return null
+    var parts = parsedURL.pathname.match(/^\/([\w-_]+)\/([\w-_\.]+)/)
+    if (!parts) return null
+    obj.user = parts[1]
+    obj.repo = parts[2].replace(/\.git$/i, "")
+  }
 
   obj.tarball_url = "https://api.github.com/repos/" + obj.user + "/" + obj.repo + "/tarball"
   obj.https_url = "https://github.com/" + obj.user + "/" + obj.repo
