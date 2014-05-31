@@ -31,8 +31,15 @@ module.exports = function(repo_url) {
     obj.branch = "master"
   }
 
-  obj.tarball_url = "https://api.github.com/repos/" + obj.user + "/" + obj.repo + "/tarball"
-  obj.https_url = "https://github.com/" + obj.user + "/" + obj.repo
-  obj.travis_url = "https://travis-ci.org/" + obj.user + "/" + obj.repo
+  obj.tarball_url = util.format("https://api.github.com/repos/%s/%s/tarball/%s", obj.user, obj.repo, obj.branch)
+
+  if (obj.branch === "master") {
+    obj.https_url = util.format("https://github.com/%s/%s", obj.user, obj.repo)
+    obj.travis_url = util.format("https://travis-ci.org/%s/%s", obj.user, obj.repo)
+  } else {
+    obj.https_url = util.format("https://github.com/%s/%s/tree/%s", obj.user, obj.repo, obj.branch)
+    obj.travis_url = util.format("https://travis-ci.org/%s/%s?branch=%s", obj.user, obj.repo, obj.branch)
+  }
+
   return obj
 }

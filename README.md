@@ -29,8 +29,23 @@ Here's what you'll get:
 {
   user: 'monkey',
   repo: 'business',
+  branch: 'master',
   https_url: 'https://github.com/monkey/business',
   tarball_url: 'https://api.github.com/repos/monkey/business/tarball'
+  travis_url: 'https://travis-ci.org/monkey/business',
+}
+```
+
+The shorthand format lets you specify a branch:
+
+```js
+  gh('monkey/business#nachos')
+{
+  user: 'monkey',
+  repo: 'business',
+  branch: 'nachos',
+  https_url: 'https://github.com/monkey/business/tree/nachos',
+  tarball_url: 'https://api.github.com/repos/monkey/business/tarball/nachos'
   travis_url: 'https://travis-ci.org/monkey/business',
 }
 ```

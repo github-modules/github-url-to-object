@@ -107,7 +107,7 @@ describe("github-url-to-object", function() {
     })
 
     it("tarball_url", function() {
-      assert.equal(obj.tarball_url, "https://api.github.com/repos/zeke/ord/tarball")
+      assert.equal(obj.tarball_url, "https://api.github.com/repos/zeke/ord/tarball/master")
     })
 
     it("https_url", function() {
@@ -116,6 +116,28 @@ describe("github-url-to-object", function() {
 
     it("travis_url", function() {
       assert.equal(obj.travis_url, "https://travis-ci.org/zeke/ord")
+    })
+
+  })
+
+  describe("branch other than master", function() {
+
+    var obj
+
+    before(function(){
+      obj = gh("zeke/ord#experiment")
+    })
+
+    it("applies to tarball_url", function() {
+      assert.equal(obj.tarball_url, "https://api.github.com/repos/zeke/ord/tarball/experiment")
+    })
+
+    it("applies to https_url", function() {
+      assert.equal(obj.https_url, "https://github.com/zeke/ord/tree/experiment")
+    })
+
+    it("applies to travis_url", function() {
+      assert.equal(obj.travis_url, "https://travis-ci.org/zeke/ord?branch=experiment")
     })
 
   })
