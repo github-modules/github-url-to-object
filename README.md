@@ -3,6 +3,8 @@
 A node module that extracts useful properties like `user` and
 `repo` from various flavors of GitHub URLs.
 
+There's also a Bitbucket equivalent to this library: [bitbucket-url-to-object](https://github.com/zeke/bitbucket-url-to-object).
+
 ## Installation
 
 ```sh
