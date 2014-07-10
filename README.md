@@ -19,6 +19,7 @@ Pass whatever flavor of github URL you like:
 var gh = require('github-url-to-object')
 
 gh('monkey/business')
+gh('github:monkey/business')
 gh('https://github.com/monkey/business')
 gh('https://github.com/monkey/business.git')
 gh('http://github.com/monkey/business')

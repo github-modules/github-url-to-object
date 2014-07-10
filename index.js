@@ -10,12 +10,17 @@ module.exports = function(repo_url) {
   if (!repo_url) return null
 
   var shorthand = repo_url.match(/^([\w-_]+)\/([\w-_\.]+)#?([\w-_\.]+)?$/)
+  var mediumhand = repo_url.match(/^github:([\w-_]+)\/([\w-_\.]+)#?([\w-_\.]+)?$/)
   var antiquated = repo_url.match(/^git@[\w-_\.]+:([\w-_]+)\/([\w-_\.]+)$/)
 
   if (shorthand) {
     obj.user = shorthand[1]
     obj.repo = shorthand[2]
     obj.branch = shorthand[3] || "master"
+  } else if (mediumhand) {
+    obj.user = mediumhand[1]
+    obj.repo = mediumhand[2]
+    obj.branch = mediumhand[3] || "master"
   } else if (antiquated) {
     obj.user = antiquated[1]
     obj.repo = antiquated[2].replace(/\.git$/i, "")

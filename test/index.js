@@ -28,6 +28,35 @@ describe("github-url-to-object", function() {
 
   })
 
+  describe("mediumhand", function(){
+
+    it("supports github:user/repo style", function(){
+      var obj = gh("user/repo#branch")
+      assert.equal(obj.user, 'user')
+      assert.equal(obj.repo, 'repo')
+    })
+
+    it("supports github:user/repo#branch style", function(){
+      var obj = gh("user/repo#branch")
+      assert.equal(obj.user, 'user')
+      assert.equal(obj.repo, 'repo')
+      assert.equal(obj.branch, 'branch')
+    })
+
+    it("defaults to master branch", function(){
+      var obj = gh("github:user/repo")
+      assert.equal(obj.user, 'user')
+      assert.equal(obj.repo, 'repo')
+      assert.equal(obj.branch, 'master')
+    })
+
+    it("rejects bitbucket", function(){
+      var obj = gh("bitbucket:user/repo")
+      assert.equal(obj, null)
+    })
+
+  })
+
   describe("oldschool", function(){
 
     it("supports git@ URLs", function() {
