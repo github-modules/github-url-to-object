@@ -1,10 +1,11 @@
 {
   "name": "github-url-to-object",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Extract user, repo, and other interesting properties from GitHub URLs",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "build": "browserify index.js --standalone gh > dist/gh.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,8 @@
     "is-url": "^1.1.0"
   },
   "devDependencies": {
-    "mocha": "^1.19.0"
+    "browserify": "^4.2.1",
+    "mocha": "^1.19.0",
+    "uglify-js": "^2.4.15"
   }
 }
