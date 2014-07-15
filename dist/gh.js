@@ -1,4 +1,65 @@
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.gh=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
+"use strict"
+
+var url = _dereq_("url")
+var util = _dereq_("util")
+var isUrl = _dereq_("is-url")
+
+module.exports = function(repo_url) {
+  var obj = {}
+
+  if (!repo_url) return null
+
+  var shorthand = repo_url.match(/^([\w-_]+)\/([\w-_\.]+)#?([\w-_\.]+)?$/)
+  var mediumhand = repo_url.match(/^github:([\w-_]+)\/([\w-_\.]+)#?([\w-_\.]+)?$/)
+  var antiquated = repo_url.match(/^git@[\w-_\.]+:([\w-_]+)\/([\w-_\.]+)$/)
+
+  if (shorthand) {
+    obj.user = shorthand[1]
+    obj.repo = shorthand[2]
+    obj.branch = shorthand[3] || "master"
+  } else if (mediumhand) {
+    obj.user = mediumhand[1]
+    obj.repo = mediumhand[2]
+    obj.branch = mediumhand[3] || "master"
+  } else if (antiquated) {
+    obj.user = antiquated[1]
+    obj.repo = antiquated[2].replace(/\.git$/i, "")
+    obj.branch = "master"
+  } else {
+    if (!isUrl(repo_url)) return null
+    var parsedURL = url.parse(repo_url)
+    if (parsedURL.hostname != "github.com") return null
+    var parts = parsedURL.pathname.match(/^\/([\w-_]+)\/([\w-_\.]+)(\/tree\/[\w-_\.]+)?(\/blob\/[\w-_\.]+)?/)
+    // ([\w-_\.]+)
+    if (!parts) return null
+    obj.user = parts[1]
+    obj.repo = parts[2].replace(/\.git$/i, "")
+
+    if (parts[3]) {
+      obj.branch = parts[3].replace(/^\/tree\//, "")
+    } else if (parts[4]) {
+      obj.branch = parts[4].replace(/^\/blob\//, "")
+    } else {
+      obj.branch = "master"
+    }
+
+  }
+
+  obj.tarball_url = util.format("https://api.github.com/repos/%s/%s/tarball/%s", obj.user, obj.repo, obj.branch)
+
+  if (obj.branch === "master") {
+    obj.https_url = util.format("https://github.com/%s/%s", obj.user, obj.repo)
+    obj.travis_url = util.format("https://travis-ci.org/%s/%s", obj.user, obj.repo)
+  } else {
+    obj.https_url = util.format("https://github.com/%s/%s/tree/%s", obj.user, obj.repo, obj.branch)
+    obj.travis_url = util.format("https://travis-ci.org/%s/%s?branch=%s", obj.user, obj.repo, obj.branch)
+  }
+
+  return obj
+}
+
+},{"is-url":11,"url":8,"util":10}],2:[function(_dereq_,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -23,7 +84,7 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],2:[function(_dereq_,module,exports){
+},{}],3:[function(_dereq_,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -88,7 +149,7 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],3:[function(_dereq_,module,exports){
+},{}],4:[function(_dereq_,module,exports){
 (function (global){
 /*! http://mths.be/punycode v1.2.4 by @mathias */
 ;(function(root) {
@@ -599,7 +660,7 @@ process.chdir = function (dir) {
 }(this));
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],4:[function(_dereq_,module,exports){
+},{}],5:[function(_dereq_,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -685,7 +746,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],5:[function(_dereq_,module,exports){
+},{}],6:[function(_dereq_,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -772,13 +833,13 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],6:[function(_dereq_,module,exports){
+},{}],7:[function(_dereq_,module,exports){
 'use strict';
 
 exports.decode = exports.parse = _dereq_('./decode');
 exports.encode = exports.stringify = _dereq_('./encode');
 
-},{"./decode":4,"./encode":5}],7:[function(_dereq_,module,exports){
+},{"./decode":5,"./encode":6}],8:[function(_dereq_,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -1487,14 +1548,14 @@ function isNullOrUndefined(arg) {
   return  arg == null;
 }
 
-},{"punycode":3,"querystring":6}],8:[function(_dereq_,module,exports){
+},{"punycode":4,"querystring":7}],9:[function(_dereq_,module,exports){
 module.exports = function isBuffer(arg) {
   return arg && typeof arg === 'object'
     && typeof arg.copy === 'function'
     && typeof arg.fill === 'function'
     && typeof arg.readUInt8 === 'function';
 }
-},{}],9:[function(_dereq_,module,exports){
+},{}],10:[function(_dereq_,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -2083,60 +2144,8 @@ function hasOwnProperty(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
 
-}).call(this,_dereq_("KoEMBo"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./support/isBuffer":8,"KoEMBo":2,"inherits":1}],10:[function(_dereq_,module,exports){
-"use strict"
-
-var url = _dereq_("url")
-var util = _dereq_("util")
-var isUrl = _dereq_("is-url")
-
-module.exports = function(repo_url) {
-  var obj = {}
-
-  if (!repo_url) return null
-
-  var shorthand = repo_url.match(/^([\w-_]+)\/([\w-_\.]+)#?([\w-_\.]+)?$/)
-  var mediumhand = repo_url.match(/^github:([\w-_]+)\/([\w-_\.]+)#?([\w-_\.]+)?$/)
-  var antiquated = repo_url.match(/^git@[\w-_\.]+:([\w-_]+)\/([\w-_\.]+)$/)
-
-  if (shorthand) {
-    obj.user = shorthand[1]
-    obj.repo = shorthand[2]
-    obj.branch = shorthand[3] || "master"
-  } else if (mediumhand) {
-    obj.user = mediumhand[1]
-    obj.repo = mediumhand[2]
-    obj.branch = mediumhand[3] || "master"
-  } else if (antiquated) {
-    obj.user = antiquated[1]
-    obj.repo = antiquated[2].replace(/\.git$/i, "")
-    obj.branch = "master"
-  } else {
-    if (!isUrl(repo_url)) return null
-    var parsedURL = url.parse(repo_url)
-    if (parsedURL.hostname != "github.com") return null
-    var parts = parsedURL.pathname.match(/^\/([\w-_]+)\/([\w-_\.]+)/)
-    if (!parts) return null
-    obj.user = parts[1]
-    obj.repo = parts[2].replace(/\.git$/i, "")
-    obj.branch = "master"
-  }
-
-  obj.tarball_url = util.format("https://api.github.com/repos/%s/%s/tarball/%s", obj.user, obj.repo, obj.branch)
-
-  if (obj.branch === "master") {
-    obj.https_url = util.format("https://github.com/%s/%s", obj.user, obj.repo)
-    obj.travis_url = util.format("https://travis-ci.org/%s/%s", obj.user, obj.repo)
-  } else {
-    obj.https_url = util.format("https://github.com/%s/%s/tree/%s", obj.user, obj.repo, obj.branch)
-    obj.travis_url = util.format("https://travis-ci.org/%s/%s?branch=%s", obj.user, obj.repo, obj.branch)
-  }
-
-  return obj
-}
-
-},{"is-url":11,"url":7,"util":9}],11:[function(_dereq_,module,exports){
+}).call(this,_dereq_("FWaASH"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"./support/isBuffer":9,"FWaASH":3,"inherits":2}],11:[function(_dereq_,module,exports){
 
 /**
  * Expose `isUrl`.
@@ -2161,6 +2170,6 @@ function isUrl(string){
   return matcher.test(string);
 }
 
-},{}]},{},[10])
-(10)
+},{}]},{},[1])
+(1)
 });

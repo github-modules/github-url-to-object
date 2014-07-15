@@ -29,11 +29,20 @@ module.exports = function(repo_url) {
     if (!isUrl(repo_url)) return null
     var parsedURL = url.parse(repo_url)
     if (parsedURL.hostname != "github.com") return null
-    var parts = parsedURL.pathname.match(/^\/([\w-_]+)\/([\w-_\.]+)/)
+    var parts = parsedURL.pathname.match(/^\/([\w-_]+)\/([\w-_\.]+)(\/tree\/[\w-_\.]+)?(\/blob\/[\w-_\.]+)?/)
+    // ([\w-_\.]+)
     if (!parts) return null
     obj.user = parts[1]
     obj.repo = parts[2].replace(/\.git$/i, "")
-    obj.branch = "master"
+
+    if (parts[3]) {
+      obj.branch = parts[3].replace(/^\/tree\//, "")
+    } else if (parts[4]) {
+      obj.branch = parts[4].replace(/^\/blob\//, "")
+    } else {
+      obj.branch = "master"
+    }
+
   }
 
   obj.tarball_url = util.format("https://api.github.com/repos/%s/%s/tarball/%s", obj.user, obj.repo, obj.branch)

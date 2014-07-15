@@ -65,7 +65,7 @@ describe("github-url-to-object", function() {
       assert.equal(obj.repo, 'heroku-flags')
     })
 
-    it("defaults to master branch", function() {
+    it("defaults to master branch for git@ URLs", function() {
       var obj = gh("git@github.com:heroku/heroku-flags.git")
       assert.equal(obj.branch, 'master')
     })
@@ -76,7 +76,7 @@ describe("github-url-to-object", function() {
       assert.equal(obj.repo, 'bar')
     })
 
-    it("defaults to master branch", function() {
+    it("defaults to master branch for git:// URLs", function() {
       var obj = gh("git://github.com/foo/bar.git")
       assert.equal(obj.branch, 'master')
     })
@@ -112,6 +112,16 @@ describe("github-url-to-object", function() {
     it("defaults to master branch", function() {
       var obj = gh("https://github.com/zeke/outlet")
       assert.equal(obj.branch, 'master')
+    })
+
+    it("resolves tree-style URLS for branches other than master", function() {
+      var obj = gh("https://github.com/zeke/outlet/tree/other-branch")
+      assert.equal(obj.branch, 'other-branch')
+    })
+
+    it("resolves blob-style URLS for branches other than master", function() {
+      var obj = gh("https://github.com/zeke/ord/blob/new-style/.gitignore")
+      assert.equal(obj.branch, 'new-style')
     })
 
   })
