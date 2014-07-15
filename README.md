@@ -7,8 +7,16 @@ There's also a Bitbucket equivalent to this library: [bitbucket-url-to-object](h
 
 ## Installation
 
+For Node.js or Browserify usage:
+
 ```sh
 npm install github-url-to-object --save
+```
+
+For bower usage:
+
+```sh
+bower install github-url-to-object
 ```
 
 ## Usage
@@ -20,6 +28,8 @@ var gh = require('github-url-to-object')
 
 gh('github:monkey/business')
 gh('https://github.com/monkey/business')
+gh('https://github.com/monkey/business/tree/master')
+gh('https://github.com/monkey/business/tree/master/nested/file.js')
 gh('https://github.com/monkey/business.git')
 gh('http://github.com/monkey/business')
 gh('git://github.com/monkey/business.git')
