@@ -179,8 +179,8 @@ describe("github-url-to-object", function() {
       assert.equal(obj.https_url, "https://github.com/zeke/ord/tree/experiment")
     })
 
-    it("api_url", function() {
-      assert.equal(obj.api_url, "https://api.github.com/repos/zeke/ord/branches/experiment")
+    it("doesn't apply to api_url", function() {
+      assert.equal(obj.api_url, "https://api.github.com/repos/zeke/ord")
     })
 
     it("applies to travis_url", function() {
