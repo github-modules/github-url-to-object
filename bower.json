@@ -8,7 +8,7 @@
     "url",
     "repo"
   ],
-  "main": "index.js",
+  "main": "dist/gh.js",
   "ignore": [
     ".travis.yml",
     "node_modules",
