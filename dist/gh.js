@@ -56,6 +56,8 @@ module.exports = function(repo_url) {
     obj.travis_url = util.format("https://travis-ci.org/%s/%s?branch=%s", obj.user, obj.repo, obj.branch)
   }
 
+  obj.api_url = util.format("https://api.github.com/repos/%s/%s", obj.user, obj.repo)
+
   return obj
 }
 
