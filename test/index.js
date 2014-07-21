@@ -149,6 +149,10 @@ describe("github-url-to-object", function() {
       assert.equal(obj.tarball_url, "https://api.github.com/repos/zeke/ord/tarball/master")
     })
 
+    it("api_url", function() {
+      assert.equal(obj.api_url, "https://api.github.com/repos/zeke/ord")
+    })
+
     it("https_url", function() {
       assert.equal(obj.https_url, "https://github.com/zeke/ord")
     })
@@ -173,6 +177,10 @@ describe("github-url-to-object", function() {
 
     it("applies to https_url", function() {
       assert.equal(obj.https_url, "https://github.com/zeke/ord/tree/experiment")
+    })
+
+    it("doesn't apply to api_url", function() {
+      assert.equal(obj.api_url, "https://api.github.com/repos/zeke/ord")
     })
 
     it("applies to travis_url", function() {
