@@ -47,6 +47,7 @@ Here's what you'll get:
   https_url: 'https://github.com/monkey/business',
   tarball_url: 'https://api.github.com/repos/monkey/business/tarball'
   travis_url: 'https://travis-ci.org/monkey/business',
+  api_url: 'https://api.github.com/repos/monkey/business'
 }
 ```
 
@@ -59,8 +60,9 @@ The shorthand form lets you specify a branch:
   repo: 'business',
   branch: 'nachos',
   https_url: 'https://github.com/monkey/business/tree/nachos',
-  tarball_url: 'https://api.github.com/repos/monkey/business/tarball/nachos'
+  tarball_url: 'https://api.github.com/repos/monkey/business/tarball/nachos',
   travis_url: 'https://travis-ci.org/monkey/business',
+  api_url: 'https://api.github.com/repos/monkey/business'
 }
 ```
 
