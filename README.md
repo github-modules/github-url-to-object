@@ -5,7 +5,7 @@ A module for node.js and browsers that extracts useful properties like `user`,
 
 There's also a Bitbucket equivalent to this library: [bitbucket-url-to-object](https://github.com/zeke/bitbucket-url-to-object).
 
-Check out the [https://github-url-to-object.herokuapp.com](live demo).
+Check out the https://github-url-to-object.herokuapp.com.
 
 ## Installation
 
