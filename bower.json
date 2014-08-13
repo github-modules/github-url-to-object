@@ -1,7 +1,7 @@
 {
   "name": "github-url-to-object",
   "description": "Extract user, repo, and other interesting properties from GitHub URLs",
-  "version": "1.3.3",
+  "version": "1.4.0",
   "license": "MIT",
   "keywords": [
     "github",
