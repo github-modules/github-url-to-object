@@ -124,6 +124,11 @@ describe("github-url-to-object", function() {
       assert.equal(obj.branch, 'feature/other-branch')
     })
 
+    it("resolves URLS for branches containing .", function() {
+      var obj = gh("https://github.com/zeke/outlet/tree/2.1")
+      assert.equal(obj.branch, '2.1')
+    })
+
     it("resolves blob-style URLS for branches other than master", function() {
       var obj = gh("https://github.com/zeke/ord/blob/new-style/.gitignore")
       assert.equal(obj.branch, 'new-style')
