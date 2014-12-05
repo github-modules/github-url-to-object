@@ -36,9 +36,9 @@ module.exports = function(repo_url) {
     obj.repo = parts[2].replace(/\.git$/i, "")
 
     if (parts[3]) {
-      obj.branch = parts[3].replace(/^\/tree\//, "").match(/[\w-_]+\/{0,1}[\w-_]+/)[0]
+      obj.branch = parts[3].replace(/^\/tree\//, "").match(/[\w-_.]+\/{0,1}[\w-_]+/)[0]
     } else if (parts[4]) {
-      obj.branch = parts[4].replace(/^\/blob\//, "").match(/[\w-_]+\/{0,1}[\w-_]+/)[0]
+      obj.branch = parts[4].replace(/^\/blob\//, "").match(/[\w-_.]+\/{0,1}[\w-_]+/)[0]
     } else {
       obj.branch = "master"
     }
