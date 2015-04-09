@@ -35,6 +35,7 @@ gh('https://github.com/monkey/business/tree/master/nested/file.js')
 gh('https://github.com/monkey/business.git')
 gh('http://github.com/monkey/business')
 gh('git://github.com/monkey/business.git')
+gh('git+https://github.com/monkey/business.git')
 ```
 
 Here's what you'll get:

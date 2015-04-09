@@ -26,6 +26,10 @@ module.exports = function(repo_url) {
     obj.repo = antiquated[2].replace(/\.git$/i, "")
     obj.branch = "master"
   } else {
+
+    // Turn git+http URLs into http URLs
+    repo_url = repo_url.replace(/^git\+/, "")
+
     if (!isUrl(repo_url)) return null
     var parsedURL = url.parse(repo_url)
     if (parsedURL.hostname != "github.com") return null

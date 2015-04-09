@@ -70,6 +70,12 @@ describe("github-url-to-object", function() {
       assert.equal(obj.branch, 'master')
     })
 
+    it("supports git+https:// URLs", function() {
+      var obj = gh("git+https://github.com/foo/bar.git")
+      assert.equal(obj.user, 'foo')
+      assert.equal(obj.repo, 'bar')
+    })
+
     it("supports git:// URLs", function() {
       var obj = gh("git://github.com/foo/bar.git")
       assert.equal(obj.user, 'foo')
