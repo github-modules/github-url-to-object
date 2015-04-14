@@ -17,14 +17,17 @@ module.exports = function(repo_url) {
     obj.user = shorthand[1]
     obj.repo = shorthand[2]
     obj.branch = shorthand[3] || "master"
+    obj.host = 'github.com'
   } else if (mediumhand) {
     obj.user = mediumhand[1]
     obj.repo = mediumhand[2]
     obj.branch = mediumhand[3] || "master"
+    obj.host = 'github.com'
   } else if (antiquated) {
     obj.user = antiquated[1]
     obj.repo = antiquated[2].replace(/\.git$/i, "")
     obj.branch = "master"
+    obj.host = 'github.com'
   } else {
 
     // Turn git+http URLs into http URLs
@@ -32,12 +35,13 @@ module.exports = function(repo_url) {
 
     if (!isUrl(repo_url)) return null
     var parsedURL = url.parse(repo_url)
-    if (parsedURL.hostname != "github.com") return null
     var parts = parsedURL.pathname.match(/^\/([\w-_]+)\/([\w-_\.]+)(\/tree\/[\w-_\.\/]+)?(\/blob\/[\w-_\.\/]+)?/)
     // ([\w-_\.]+)
     if (!parts) return null
     obj.user = parts[1]
     obj.repo = parts[2].replace(/\.git$/i, "")
+
+    obj.host = parsedURL.hostname || 'github.com';
 
     if (parts[3]) {
       obj.branch = parts[3].replace(/^\/tree\//, "").match(/[\w-_.]+\/{0,1}[\w-_]+/)[0]
@@ -49,17 +53,23 @@ module.exports = function(repo_url) {
 
   }
 
-  obj.tarball_url = util.format("https://api.github.com/repos/%s/%s/tarball/%s", obj.user, obj.repo, obj.branch)
+  if (obj.host === 'github.com') {
+    obj.apiHost = 'api.github.com'
+  } else {
+    obj.apiHost = util.format('%s/api/v3', obj.host)
+  }
+
+  obj.tarball_url = util.format("https://%s/repos/%s/%s/tarball/%s", obj.apiHost, obj.user, obj.repo, obj.branch)
 
   if (obj.branch === "master") {
-    obj.https_url = util.format("https://github.com/%s/%s", obj.user, obj.repo)
+    obj.https_url = util.format("https://%s/%s/%s", obj.host, obj.user, obj.repo)
     obj.travis_url = util.format("https://travis-ci.org/%s/%s", obj.user, obj.repo)
   } else {
-    obj.https_url = util.format("https://github.com/%s/%s/tree/%s", obj.user, obj.repo, obj.branch)
+    obj.https_url = util.format("https://%s/%s/%s/tree/%s", obj.host, obj.user, obj.repo, obj.branch)
     obj.travis_url = util.format("https://travis-ci.org/%s/%s?branch=%s", obj.user, obj.repo, obj.branch)
   }
 
-  obj.api_url = util.format("https://api.github.com/repos/%s/%s", obj.user, obj.repo)
+  obj.api_url = util.format("https://%s/repos/%s/%s", obj.apiHost, obj.user, obj.repo)
 
   return obj
 }
