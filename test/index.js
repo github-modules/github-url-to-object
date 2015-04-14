@@ -31,13 +31,13 @@ describe("github-url-to-object", function() {
   describe("mediumhand", function(){
 
     it("supports github:user/repo style", function(){
-      var obj = gh("user/repo#branch")
+      var obj = gh("github:user/repo#branch")
       assert.equal(obj.user, 'user')
       assert.equal(obj.repo, 'repo')
     })
 
     it("supports github:user/repo#branch style", function(){
-      var obj = gh("user/repo#branch")
+      var obj = gh("github:user/repo#branch")
       assert.equal(obj.user, 'user')
       assert.equal(obj.repo, 'repo')
       assert.equal(obj.branch, 'branch')
@@ -86,6 +86,20 @@ describe("github-url-to-object", function() {
       var obj = gh("git://github.com/foo/bar.git")
       assert.equal(obj.branch, 'master')
     })
+
+    describe('github enterprise', function() {
+      it("supports git@ URLs", function() {
+        var obj = gh("git@ghe.example.com:heroku/heroku-flags.git")
+        assert.equal(obj.user, 'heroku')
+        assert.equal(obj.repo, 'heroku-flags')
+      })
+
+      it("supports git:// URLs", function() {
+        var obj = gh("git://ghe.example.com/foo/bar.git")
+        assert.equal(obj.user, 'foo')
+        assert.equal(obj.repo, 'bar')
+      })
+    });
 
   })
 
@@ -140,6 +154,19 @@ describe("github-url-to-object", function() {
       assert.equal(obj.branch, 'new-style')
     })
 
+    describe('github enterprise', function() {
+      it("supports http URLs", function() {
+        var obj = gh("http://ghe.example.com/zeke/outlet.git")
+        assert.equal(obj.user, 'zeke')
+        assert.equal(obj.repo, 'outlet')
+      })
+
+      it("supports https URLs", function() {
+        var obj = gh("https://ghe.example.com/zeke/outlet.git")
+        assert.equal(obj.user, 'zeke')
+        assert.equal(obj.repo, 'outlet')
+      })
+    });
   })
 
   describe("properties", function() {
@@ -212,11 +239,6 @@ describe("github-url-to-object", function() {
       assert.equal(gh(null), null)
       assert.equal(gh(undefined), null)
       assert.equal(gh(""), null)
-    })
-
-    it("returns null for non-github URLs", function() {
-      var obj = gh("https://bitbucket.com/other/thing")
-      assert.equal(obj, null)
     })
 
   })
