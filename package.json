@@ -4,7 +4,7 @@
   "description": "Extract user, repo, and other interesting properties from GitHub URLs",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "standard --format && mocha",
     "build": "browserify index.js --standalone gh > dist/gh.js"
   },
   "repository": {
@@ -27,6 +27,7 @@
   "devDependencies": {
     "browserify": "^4.2.1",
     "mocha": "^1.19.0",
+    "standard": "^3.7.0",
     "uglify-js": "^2.4.15"
   }
 }
