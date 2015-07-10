@@ -45,8 +45,9 @@ Here's what you'll get:
   user: 'monkey',
   repo: 'business',
   branch: 'master',
+  tarball_url: 'https://api.github.com/repos/monkey/business/tarball/master',
+  clone_url: 'https://github.com/monkey/business',
   https_url: 'https://github.com/monkey/business',
-  tarball_url: 'https://api.github.com/repos/monkey/business/tarball'
   travis_url: 'https://travis-ci.org/monkey/business',
   api_url: 'https://api.github.com/repos/monkey/business'
   zip_url: 'https://github.com/monkey/business/archive/master.zip'
@@ -63,7 +64,9 @@ The shorthand form lets you specify a branch:
   branch: 'nachos',
   https_url: 'https://github.com/monkey/business/blob/nachos',
   tarball_url: 'https://api.github.com/repos/monkey/business/tarball/nachos',
-  travis_url: 'https://travis-ci.org/monkey/business',
+  clone_url: 'https://github.com/monkey/business',
+  https_url: 'https://github.com/monkey/business/tree/nachos',
+  travis_url: 'https://travis-ci.org/monkey/business?branch=nachos',
   api_url: 'https://api.github.com/repos/monkey/business'
   zip_url: 'https://github.com/monkey/business/archive/nachos.zip'
 }

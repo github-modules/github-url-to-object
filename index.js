@@ -50,6 +50,7 @@ module.exports = function (repo_url) {
   }
 
   obj.tarball_url = util.format('https://api.github.com/repos/%s/%s/tarball/%s', obj.user, obj.repo, obj.branch)
+  obj.clone_url = util.format('https://github.com/%s/%s', obj.user, obj.repo)
 
   if (obj.branch === 'master') {
     obj.https_url = util.format('https://github.com/%s/%s', obj.user, obj.repo)
