@@ -49,6 +49,7 @@ Here's what you'll get:
   tarball_url: 'https://api.github.com/repos/monkey/business/tarball'
   travis_url: 'https://travis-ci.org/monkey/business',
   api_url: 'https://api.github.com/repos/monkey/business'
+  zip_url: 'https://github.com/monkey/business/archive/master.zip'
 }
 ```
 
@@ -64,6 +65,7 @@ The shorthand form lets you specify a branch:
   tarball_url: 'https://api.github.com/repos/monkey/business/tarball/nachos',
   travis_url: 'https://travis-ci.org/monkey/business',
   api_url: 'https://api.github.com/repos/monkey/business'
+  zip_url: 'https://github.com/monkey/business/archive/nachos.zip'
 }
 ```
 
