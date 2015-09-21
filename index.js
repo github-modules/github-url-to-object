@@ -31,7 +31,7 @@ module.exports = function (repo_url) {
 
     if (!isUrl(repo_url)) return null
     var parsedURL = url.parse(repo_url)
-  
+
     if (!parsedURL.hostname) return null
     if (parsedURL.hostname !== 'github.com') return null
     var parts = parsedURL.pathname.match(/^\/([\w-_]+)\/([\w-_\.]+)(\/tree\/[\w-_\.\/]+)?(\/blob\/[\w-_\.\/]+)?/)
@@ -54,11 +54,11 @@ module.exports = function (repo_url) {
   if (obj.branch === 'master') {
     obj.https_url = util.format('https://github.com/%s/%s', obj.user, obj.repo)
     obj.travis_url = util.format('https://travis-ci.org/%s/%s', obj.user, obj.repo)
-	obj.zip_url = util.format('https://github.com/%s/%s/archive/master.zip', obj.user, obj.repo)
+    obj.zip_url = util.format('https://github.com/%s/%s/archive/master.zip', obj.user, obj.repo)
   } else {
     obj.https_url = util.format('https://github.com/%s/%s/tree/%s', obj.user, obj.repo, obj.branch)
     obj.travis_url = util.format('https://travis-ci.org/%s/%s?branch=%s', obj.user, obj.repo, obj.branch)
-	obj.zip_url = util.format('https://github.com/%s/%s/archive/%s.zip', obj.user, obj.repo, obj.branch)
+    obj.zip_url = util.format('https://github.com/%s/%s/archive/%s.zip', obj.user, obj.repo, obj.branch)
   }
 
   obj.api_url = util.format('https://api.github.com/repos/%s/%s', obj.user, obj.repo)

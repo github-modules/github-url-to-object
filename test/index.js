@@ -172,8 +172,8 @@ describe('github-url-to-object', function () {
     it('travis_url', function () {
       assert.equal(obj.travis_url, 'https://travis-ci.org/zeke/ord')
     })
-	
-	it('zip_url', function () {
+
+    it('zip_url', function () {
       assert.equal(obj.zip_url, 'https://github.com/zeke/ord/archive/master.zip')
     })
 
@@ -201,8 +201,8 @@ describe('github-url-to-object', function () {
     it('applies to travis_url', function () {
       assert.equal(obj.travis_url, 'https://travis-ci.org/zeke/ord?branch=experiment')
     })
-	
-	it('applies to zip_url', function () {
+
+    it('applies to zip_url', function () {
       assert.equal(obj.zip_url, 'https://github.com/zeke/ord/archive/experiment.zip')
     })
 
