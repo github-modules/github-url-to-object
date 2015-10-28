@@ -56,7 +56,7 @@ module.exports = function (repo_url) {
     obj.travis_url = util.format('https://travis-ci.org/%s/%s', obj.user, obj.repo)
     obj.zip_url = util.format('https://github.com/%s/%s/archive/master.zip', obj.user, obj.repo)
   } else {
-    obj.https_url = util.format('https://github.com/%s/%s/tree/%s', obj.user, obj.repo, obj.branch)
+    obj.https_url = util.format('https://github.com/%s/%s/blob/%s', obj.user, obj.repo, obj.branch)
     obj.travis_url = util.format('https://travis-ci.org/%s/%s?branch=%s', obj.user, obj.repo, obj.branch)
     obj.zip_url = util.format('https://github.com/%s/%s/archive/%s.zip', obj.user, obj.repo, obj.branch)
   }

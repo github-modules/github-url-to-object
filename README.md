@@ -61,7 +61,7 @@ The shorthand form lets you specify a branch:
   user: 'monkey',
   repo: 'business',
   branch: 'nachos',
-  https_url: 'https://github.com/monkey/business/tree/nachos',
+  https_url: 'https://github.com/monkey/business/blob/nachos',
   tarball_url: 'https://api.github.com/repos/monkey/business/tarball/nachos',
   travis_url: 'https://travis-ci.org/monkey/business',
   api_url: 'https://api.github.com/repos/monkey/business'
