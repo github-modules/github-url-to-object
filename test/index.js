@@ -194,6 +194,10 @@ describe('github-url-to-object', function () {
       assert.equal(obj.https_url, 'https://github.com/zeke/ord/blob/experiment')
     })
 
+    it('applies to clone_url', function () {
+      assert.equal(obj.clone_url, 'https://github.com/zeke/ord')
+    })
+
     it("doesn't apply to api_url", function () {
       assert.equal(obj.api_url, 'https://api.github.com/repos/zeke/ord')
     })
