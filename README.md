@@ -65,7 +65,6 @@ The shorthand form lets you specify a branch:
   https_url: 'https://github.com/monkey/business/blob/nachos',
   tarball_url: 'https://api.github.com/repos/monkey/business/tarball/nachos',
   clone_url: 'https://github.com/monkey/business',
-  https_url: 'https://github.com/monkey/business/tree/nachos',
   travis_url: 'https://travis-ci.org/monkey/business?branch=nachos',
   api_url: 'https://api.github.com/repos/monkey/business'
   zip_url: 'https://github.com/monkey/business/archive/nachos.zip'
