@@ -5,7 +5,7 @@ A module for node.js and browsers that extracts useful properties like `user`,
 
 There's also a Bitbucket equivalent to this library: [bitbucket-url-to-object](https://github.com/zeke/bitbucket-url-to-object).
 
-Check out the demo at https://github-url-to-object.herokuapp.com.
+Check out the demo at [zeke.github.io/github-url-to-object](https://zeke.github.io/github-url-to-object).
 
 ## Installation
 
@@ -23,7 +23,7 @@ bower install github-url-to-object
 
 ## Usage
 
-Pass whatever flavor of github URL you like:
+Use whatever flavor of GitHub URL you like:
 
 ```js
 var gh = require('github-url-to-object')
@@ -71,7 +71,7 @@ The shorthand form lets you specify a branch:
 }
 ```
 
-If you provide a non-github URL or a falsy value, you'll get `null`.
+If you provide a non-GitHub URL or a falsey value, you'll get `null`.
 
 ## Test
 
