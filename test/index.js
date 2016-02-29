@@ -27,15 +27,15 @@ describe('github-url-to-object', function () {
 
   })
 
-  describe('mediumhand', function () {
-    it('supports github:user/repo style', function () {
-      var obj = gh('user/repo#branch')
+  describe("mediumhand", function(){
+    it("supports github:user/repo style", function(){
+      var obj = gh("github:user/repo#branch")
       assert.equal(obj.user, 'user')
       assert.equal(obj.repo, 'repo')
     })
 
-    it('supports github:user/repo#branch style', function () {
-      var obj = gh('user/repo#branch')
+    it("supports github:user/repo#branch style", function(){
+      var obj = gh("github:user/repo#branch")
       assert.equal(obj.user, 'user')
       assert.equal(obj.repo, 'repo')
       assert.equal(obj.branch, 'branch')
@@ -83,6 +83,20 @@ describe('github-url-to-object', function () {
       var obj = gh('git://github.com/foo/bar.git')
       assert.equal(obj.branch, 'master')
     })
+
+    describe('github enterprise', function() {
+      it("supports git@ URLs", function() {
+        var obj = gh("git@ghe.example.com:heroku/heroku-flags.git")
+        assert.equal(obj.user, 'heroku')
+        assert.equal(obj.repo, 'heroku-flags')
+      })
+
+      it("supports git:// URLs", function() {
+        var obj = gh("git://ghe.example.com/foo/bar.git")
+        assert.equal(obj.user, 'foo')
+        assert.equal(obj.repo, 'bar')
+      })
+    });
 
   })
 
@@ -136,47 +150,95 @@ describe('github-url-to-object', function () {
       assert.equal(obj.branch, 'new-style')
     })
 
+    describe('github enterprise', function() {
+      it("supports http URLs", function() {
+        var obj = gh("http://ghe.example.com/zeke/outlet.git")
+        assert.equal(obj.user, 'zeke')
+        assert.equal(obj.repo, 'outlet')
+      })
+
+      it("supports https URLs", function() {
+        var obj = gh("https://ghe.example.com/zeke/outlet.git")
+        assert.equal(obj.user, 'zeke')
+        assert.equal(obj.repo, 'outlet')
+      })
+    });
   })
 
   describe('properties', function () {
     var obj
 
-    before(function () {
-      obj = gh('zeke/ord')
+    describe('github.com', function() {
+      before(function(){
+        obj = gh("zeke/ord")
+      })
+
+      it("user", function() {
+        assert.equal(obj.user, "zeke")
+      })
+
+      it("repo", function() {
+        assert.equal(obj.repo, "ord")
+      })
+
+      it("branch", function() {
+        assert.equal(obj.branch, "master")
+      })
+
+      it("tarball_url", function() {
+        assert.equal(obj.tarball_url, "https://api.github.com/repos/zeke/ord/tarball/master")
+      })
+
+      it("api_url", function() {
+        assert.equal(obj.api_url, "https://api.github.com/repos/zeke/ord")
+      })
+
+      it("https_url", function() {
+        assert.equal(obj.https_url, "https://github.com/zeke/ord")
+      })
+
+      it("travis_url", function() {
+        assert.equal(obj.travis_url, "https://travis-ci.org/zeke/ord")
+      })
+
+      it('zip_url', function () {
+        assert.equal(obj.zip_url, 'https://github.com/zeke/ord/archive/master.zip')
+      })
     })
 
-    it('user', function () {
-      assert.equal(obj.user, 'zeke')
-    })
+    describe('github enterprise', function() {
+      before(function(){
+        obj = gh("https://ghe.example.com/zeke/outlet.git")
+      })
 
-    it('repo', function () {
-      assert.equal(obj.repo, 'ord')
-    })
+      it("user", function() {
+        assert.equal(obj.user, "zeke")
+      })
 
-    it('branch', function () {
-      assert.equal(obj.branch, 'master')
-    })
+      it("repo", function() {
+        assert.equal(obj.repo, "outlet")
+      })
 
-    it('tarball_url', function () {
-      assert.equal(obj.tarball_url, 'https://api.github.com/repos/zeke/ord/tarball/master')
-    })
+      it("branch", function() {
+        assert.equal(obj.branch, "master")
+      })
 
-    it('api_url', function () {
-      assert.equal(obj.api_url, 'https://api.github.com/repos/zeke/ord')
-    })
+      it("tarball_url", function() {
+        assert.equal(obj.tarball_url, "https://ghe.example.com/api/v3/repos/zeke/outlet/tarball/master")
+      })
 
-    it('https_url', function () {
-      assert.equal(obj.https_url, 'https://github.com/zeke/ord')
-    })
+      it("api_url", function() {
+        assert.equal(obj.api_url, "https://ghe.example.com/api/v3/repos/zeke/outlet")
+      })
 
-    it('travis_url', function () {
-      assert.equal(obj.travis_url, 'https://travis-ci.org/zeke/ord')
-    })
+      it("https_url", function() {
+        assert.equal(obj.https_url, "https://ghe.example.com/zeke/outlet")
+      })
 
-    it('zip_url', function () {
-      assert.equal(obj.zip_url, 'https://github.com/zeke/ord/archive/master.zip')
+      it('zip_url', function () {
+        assert.equal(obj.zip_url, 'https://ghe.example.com/zeke/outlet/archive/master.zip')
+      })
     })
-
   })
 
   describe('branch other than master', function () {
@@ -219,12 +281,6 @@ describe('github-url-to-object', function () {
       assert.equal(gh(undefined), null)
       assert.equal(gh(''), null)
     })
-
-    it('returns null for non-github URLs', function () {
-      var obj = gh('https://bitbucket.com/other/thing')
-      assert.equal(obj, null)
-    })
-
   })
 
 })
