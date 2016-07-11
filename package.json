@@ -4,7 +4,7 @@
   "description": "Extract user, repo, and other interesting properties from GitHub URLs",
   "main": "index.js",
   "scripts": {
-    "test": "standard --format index.js && mocha",
+    "test": "mocha && standard",
     "build": "browserify index.js --standalone gh > dist/gh.js",
     "deploy": "npm run build && git subtree push --prefix dist origin gh-pages && open https://zeke.github.io/github-url-to-object"
   },
@@ -27,10 +27,9 @@
     "is-url": "^1.1.0"
   },
   "devDependencies": {
-    "browserify": "^4.2.1",
-    "harp": "^0.19.0",
-    "mocha": "^1.19.0",
-    "standard": "^3.7.0",
+    "browserify": "^13.0.1",
+    "mocha": "^2.5.3",
+    "standard": "^7.1.2",
     "uglify-js": "^2.4.15"
   }
 }
