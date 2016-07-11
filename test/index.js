@@ -84,13 +84,13 @@ describe('github-url-to-object', function () {
 
     describe('github enterprise', function () {
       it('supports git@ URLs', function () {
-        var obj = gh('git@ghe.example.com:heroku/heroku-flags.git')
+        var obj = gh('git@ghe.example.com:heroku/heroku-flags.git', {enterprise: true})
         assert.equal(obj.user, 'heroku')
         assert.equal(obj.repo, 'heroku-flags')
       })
 
       it('supports git:// URLs', function () {
-        var obj = gh('git://ghe.example.com/foo/bar.git')
+        var obj = gh('git://ghe.example.com/foo/bar.git', {enterprise: true})
         assert.equal(obj.user, 'foo')
         assert.equal(obj.repo, 'bar')
       })
@@ -149,13 +149,13 @@ describe('github-url-to-object', function () {
 
     describe('github enterprise', function () {
       it('supports http URLs', function () {
-        var obj = gh('http://ghe.example.com/zeke/outlet.git')
+        var obj = gh('http://ghe.example.com/zeke/outlet.git', {enterprise: true})
         assert.equal(obj.user, 'zeke')
         assert.equal(obj.repo, 'outlet')
       })
 
       it('supports https URLs', function () {
-        var obj = gh('https://ghe.example.com/zeke/outlet.git')
+        var obj = gh('https://ghe.example.com/zeke/outlet.git', {enterprise: true})
         assert.equal(obj.user, 'zeke')
         assert.equal(obj.repo, 'outlet')
       })
@@ -205,7 +205,7 @@ describe('github-url-to-object', function () {
 
     describe('github enterprise', function () {
       before(function () {
-        obj = gh('https://ghe.example.com/zeke/outlet.git')
+        obj = gh('https://ghe.example.com/zeke/outlet.git', {enterprise: true})
       })
 
       it('user', function () {
@@ -276,6 +276,10 @@ describe('github-url-to-object', function () {
       assert.equal(gh(null), null)
       assert.equal(gh(undefined), null)
       assert.equal(gh(''), null)
+    })
+
+    it('returns null if hostname is not github.com', function () {
+      assert.equal(gh('https://ghe.something.com/foo/bar'), null)
     })
   })
 })

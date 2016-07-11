@@ -73,6 +73,13 @@ The shorthand form lets you specify a branch:
 
 If you provide a non-GitHub URL or a falsey value, you'll get `null`.
 
+If you're using GitHub Enterprise, pass the `enterprise` option to allow
+your non-`github.com` URL to be parsed:
+
+```js
+gh('https://ghe.example.com:heroku/heroku-flags.git', {enterprise: true})
+```
+
 ## Test
 
 ```sh

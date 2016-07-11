@@ -4,8 +4,9 @@ var url = require('url')
 var util = require('util')
 var isUrl = require('is-url')
 
-module.exports = function (repoUrl) {
+module.exports = function (repoUrl, opts) {
   var obj = {}
+  opts = opts || {}
 
   if (!repoUrl) return null
 
@@ -36,6 +37,7 @@ module.exports = function (repoUrl) {
     var parsedURL = url.parse(repoUrl)
 
     if (!parsedURL.hostname) return null
+    if (parsedURL.hostname !== 'github.com' && !opts.enterprise) return null
 
     var parts = parsedURL.pathname.match(/^\/([\w-_]+)\/([\w-_\.]+)(\/tree\/[\w-_\.\/]+)?(\/blob\/[\w-_\.\/]+)?/)
     // ([\w-_\.]+)
