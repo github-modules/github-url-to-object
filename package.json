@@ -31,5 +31,10 @@
     "mocha": "^2.5.3",
     "standard": "^7.1.2",
     "uglify-js": "^2.4.15"
+  },
+  "standard": {
+    "ignore": [
+      "dist"
+    ]
   }
 }

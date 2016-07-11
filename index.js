@@ -4,14 +4,14 @@ var url = require('url')
 var util = require('util')
 var isUrl = require('is-url')
 
-module.exports = function (repo_url) {
+module.exports = function (repoUrl) {
   var obj = {}
 
-  if (!repo_url) return null
+  if (!repoUrl) return null
 
-  var shorthand = repo_url.match(/^([\w-_]+)\/([\w-_\.]+)#?([\w-_\.]+)?$/)
-  var mediumhand = repo_url.match(/^github:([\w-_]+)\/([\w-_\.]+)#?([\w-_\.]+)?$/)
-  var antiquated = repo_url.match(/^git@[\w-_\.]+:([\w-_]+)\/([\w-_\.]+)$/)
+  var shorthand = repoUrl.match(/^([\w-_]+)\/([\w-_\.]+)#?([\w-_\.]+)?$/)
+  var mediumhand = repoUrl.match(/^github:([\w-_]+)\/([\w-_\.]+)#?([\w-_\.]+)?$/)
+  var antiquated = repoUrl.match(/^git@[\w-_\.]+:([\w-_]+)\/([\w-_\.]+)$/)
 
   if (shorthand) {
     obj.user = shorthand[1]
@@ -30,10 +30,10 @@ module.exports = function (repo_url) {
     obj.host = 'github.com'
   } else {
     // Turn git+http URLs into http URLs
-    repo_url = repo_url.replace(/^git\+/, '')
+    repoUrl = repoUrl.replace(/^git\+/, '')
 
-    if (!isUrl(repo_url)) return null
-    var parsedURL = url.parse(repo_url)
+    if (!isUrl(repoUrl)) return null
+    var parsedURL = url.parse(repoUrl)
 
     if (!parsedURL.hostname) return null
 
