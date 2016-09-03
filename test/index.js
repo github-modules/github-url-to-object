@@ -110,6 +110,12 @@ describe('github-url-to-object', function () {
       assert.equal(obj.repo, 'outlet')
     })
 
+    it('supports URLs with www', function () {
+      var obj = gh('https://www.github.com/zeke/outlet')
+      assert.equal(obj.user, 'zeke')
+      assert.equal(obj.repo, 'outlet')
+    })
+
     it('supports deep URLs', function () {
       var obj = gh('https://github.com/zeke/ruby-rails-sample/blob/b1e1000fedb6ca448dd78702de4fc78dedfee48c/app.json')
       assert.equal(obj.user, 'zeke')
