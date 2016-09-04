@@ -37,7 +37,7 @@ module.exports = function (repoUrl, opts) {
     var parsedURL = url.parse(repoUrl)
 
     if (!parsedURL.hostname) return null
-    if (parsedURL.hostname !== 'github.com' && !opts.enterprise) return null
+    if (parsedURL.hostname !== 'github.com' && parsedURL.hostname !== 'www.github.com' && !opts.enterprise) return null
 
     var parts = parsedURL.pathname.match(/^\/([\w-_]+)\/([\w-_\.]+)(\/tree\/[\w-_\.\/]+)?(\/blob\/[\w-_\.\/]+)?/)
     // ([\w-_\.]+)
