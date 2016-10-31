@@ -47,7 +47,10 @@ module.exports = function (repoUrl, opts) {
 
     obj.host = parsedURL.hostname || 'github.com'
 
-    if (parts[3]) {
+    if (parts[3] && /^\/tree\/master\//.test(parts[3])) {
+      obj.branch = 'master'
+      obj.path = parts[3].replace(/\/$/, '')
+    } else if (parts[3]) {
       obj.branch = parts[3].replace(/^\/tree\//, '').match(/[\w-_.]+\/{0,1}[\w-_]+/)[0]
     } else if (parts[4]) {
       obj.branch = parts[4].replace(/^\/blob\//, '').match(/[\w-_.]+\/{0,1}[\w-_]+/)[0]
@@ -73,6 +76,11 @@ module.exports = function (repoUrl, opts) {
     obj.https_url = util.format('https://%s/%s/%s/blob/%s', obj.host, obj.user, obj.repo, obj.branch)
     obj.travis_url = util.format('https://travis-ci.org/%s/%s?branch=%s', obj.user, obj.repo, obj.branch)
     obj.zip_url = util.format('https://%s/%s/%s/archive/%s.zip', obj.host, obj.user, obj.repo, obj.branch)
+  }
+
+  // Support deep paths (like lerna-style repos)
+  if (obj.path) {
+    obj.https_url += obj.path
   }
 
   obj.api_url = util.format('https://%s/repos/%s/%s', obj.apiHost, obj.user, obj.repo)

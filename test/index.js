@@ -153,6 +153,11 @@ describe('github-url-to-object', function () {
       assert.equal(obj.branch, 'new-style')
     })
 
+    it('supports nested packages (lerna-style)', function () {
+      var obj = gh('https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-object-rest-spread/')
+      assert.equal(obj.https_url, 'https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-object-rest-spread')
+    })
+
     describe('github enterprise', function () {
       it('supports http URLs', function () {
         var obj = gh('http://ghe.example.com/zeke/outlet.git', {enterprise: true})
