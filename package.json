@@ -1,6 +1,6 @@
 {
   "name": "github-url-to-object",
-  "version": "2.2.4",
+  "version": "2.2.5",
   "description": "Extract user, repo, and other interesting properties from GitHub URLs",
   "main": "index.js",
   "scripts": {
