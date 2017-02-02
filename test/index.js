@@ -269,7 +269,7 @@ describe('github-url-to-object', function () {
     })
 
     it('applies to https_url', function () {
-      assert.equal(obj.https_url, 'https://github.com/zeke/ord/blob/experiment')
+      assert.equal(obj.https_url, 'https://github.com/zeke/ord/tree/experiment')
     })
 
     it('applies to clone_url', function () {

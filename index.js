@@ -77,7 +77,7 @@ module.exports = function (repoUrl, opts) {
     obj.travis_url = util.format('https://travis-ci.org/%s/%s', obj.user, obj.repo)
     obj.zip_url = util.format('https://%s/%s/%s/archive/master.zip', obj.host, obj.user, obj.repo)
   } else {
-    obj.https_url = util.format('https://%s/%s/%s/blob/%s', obj.host, obj.user, obj.repo, obj.branch)
+    obj.https_url = util.format('https://%s/%s/%s/tree/%s', obj.host, obj.user, obj.repo, obj.branch)
     obj.travis_url = util.format('https://travis-ci.org/%s/%s?branch=%s', obj.user, obj.repo, obj.branch)
     obj.zip_url = util.format('https://%s/%s/%s/archive/%s.zip', obj.host, obj.user, obj.repo, obj.branch)
   }
