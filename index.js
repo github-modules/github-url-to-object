@@ -10,6 +10,10 @@ module.exports = function (repoUrl, opts) {
 
   if (!repoUrl) return null
 
+  // Allow an object with nested `url` string
+  // (common practice in package.json files)
+  if (repoUrl.url) repoUrl = repoUrl.url
+
   var shorthand = repoUrl.match(/^([\w-_]+)\/([\w-_\.]+)#?([\w-_\.]+)?$/)
   var mediumhand = repoUrl.match(/^github:([\w-_]+)\/([\w-_\.]+)#?([\w-_\.]+)?$/)
   var antiquated = repoUrl.match(/^git@[\w-_\.]+:([\w-_]+)\/([\w-_\.]+)$/)
