@@ -97,6 +97,14 @@ describe('github-url-to-object', function () {
     })
   })
 
+  describe('repository.url object', function () {
+    it('accepts an object with a `url` property; common in package.json files', function () {
+      var obj = gh({url: 'http://github.com/zeke/outlet.git', type: 'git'})
+      assert.equal(obj.user, 'zeke')
+      assert.equal(obj.repo, 'outlet')
+    })
+  })
+
   describe('http', function () {
     it('supports http URLs', function () {
       var obj = gh('http://github.com/zeke/outlet.git')
