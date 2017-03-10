@@ -1,7 +1,6 @@
 'use strict'
 
 var url = require('url')
-var util = require('util')
 var isUrl = require('is-url')
 
 module.exports = function (repoUrl, opts) {
@@ -66,20 +65,20 @@ module.exports = function (repoUrl, opts) {
   if (obj.host === 'github.com') {
     obj.apiHost = 'api.github.com'
   } else {
-    obj.apiHost = util.format('%s/api/v3', obj.host)
+    obj.apiHost = obj.host + '/api/v3'
   }
 
-  obj.tarball_url = util.format('https://%s/repos/%s/%s/tarball/%s', obj.apiHost, obj.user, obj.repo, obj.branch)
-  obj.clone_url = util.format('https://%s/%s/%s', obj.host, obj.user, obj.repo)
+  obj.tarball_url = 'https://' + obj.apiHost + '/repos/' + obj.user + '/' + obj.repo + '/tarball/' + obj.branch
+  obj.clone_url = 'https://' + obj.host + '/' + obj.user + '/' + obj.repo
 
   if (obj.branch === 'master') {
-    obj.https_url = util.format('https://%s/%s/%s', obj.host, obj.user, obj.repo)
-    obj.travis_url = util.format('https://travis-ci.org/%s/%s', obj.user, obj.repo)
-    obj.zip_url = util.format('https://%s/%s/%s/archive/master.zip', obj.host, obj.user, obj.repo)
+    obj.https_url = 'https://' + obj.host + '/' + obj.user + '/' + obj.repo
+    obj.travis_url = 'https://travis-ci.org/' + obj.user + '/' + obj.repo
+    obj.zip_url = 'https://' + obj.host + '/' + obj.user + '/' + obj.repo + '/archive/master.zip'
   } else {
-    obj.https_url = util.format('https://%s/%s/%s/blob/%s', obj.host, obj.user, obj.repo, obj.branch)
-    obj.travis_url = util.format('https://travis-ci.org/%s/%s?branch=%s', obj.user, obj.repo, obj.branch)
-    obj.zip_url = util.format('https://%s/%s/%s/archive/%s.zip', obj.host, obj.user, obj.repo, obj.branch)
+    obj.https_url = 'https://' + obj.host + '/' + obj.user + '/' + obj.repo + '/blob/' + obj.branch
+    obj.travis_url = 'https://travis-ci.org/' + obj.user + '/' + obj.repo + '?branch=' + obj.branch
+    obj.zip_url = 'https://' + obj.host + '/' + obj.user + '/' + obj.repo + '/archive/' + obj.branch + '.zip'
   }
 
   // Support deep paths (like lerna-style repos)
@@ -87,7 +86,7 @@ module.exports = function (repoUrl, opts) {
     obj.https_url += obj.path
   }
 
-  obj.api_url = util.format('https://%s/repos/%s/%s', obj.apiHost, obj.user, obj.repo)
+  obj.api_url = 'https://' + obj.apiHost + '/repos/' + obj.user + '/' + obj.repo
 
   return obj
 }
