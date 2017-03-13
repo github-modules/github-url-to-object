@@ -65,20 +65,20 @@ module.exports = function (repoUrl, opts) {
   if (obj.host === 'github.com') {
     obj.apiHost = 'api.github.com'
   } else {
-    obj.apiHost = obj.host + '/api/v3'
+    obj.apiHost = `${obj.host}/api/v3`
   }
 
-  obj.tarball_url = 'https://' + obj.apiHost + '/repos/' + obj.user + '/' + obj.repo + '/tarball/' + obj.branch
-  obj.clone_url = 'https://' + obj.host + '/' + obj.user + '/' + obj.repo
+  obj.tarball_url = `https://${obj.apiHost}/repos/${obj.user}/${obj.repo}/tarball/${obj.branch}`
+  obj.clone_url = `https://${obj.host}/${obj.user}/${obj.repo}`
 
   if (obj.branch === 'master') {
-    obj.https_url = 'https://' + obj.host + '/' + obj.user + '/' + obj.repo
-    obj.travis_url = 'https://travis-ci.org/' + obj.user + '/' + obj.repo
-    obj.zip_url = 'https://' + obj.host + '/' + obj.user + '/' + obj.repo + '/archive/master.zip'
+    obj.https_url = `https://${obj.host}/${obj.user}/${obj.repo}`
+    obj.travis_url = `https://travis-ci.org/${obj.user}/${obj.repo}`
+    obj.zip_url = `https://${obj.host}/${obj.user}/${obj.repo}/archive/master.zip`
   } else {
-    obj.https_url = 'https://' + obj.host + '/' + obj.user + '/' + obj.repo + '/blob/' + obj.branch
-    obj.travis_url = 'https://travis-ci.org/' + obj.user + '/' + obj.repo + '?branch=' + obj.branch
-    obj.zip_url = 'https://' + obj.host + '/' + obj.user + '/' + obj.repo + '/archive/' + obj.branch + '.zip'
+    obj.https_url = `https://${obj.host}/${obj.user}/${obj.repo}/blob/${obj.branch}`
+    obj.travis_url = `https://travis-ci.org/${obj.user}/${obj.repo}?branch=${obj.branch}`
+    obj.zip_url = `https://${obj.host}/${obj.user}/${obj.repo}/archive/${obj.branch}.zip`
   }
 
   // Support deep paths (like lerna-style repos)
@@ -86,7 +86,7 @@ module.exports = function (repoUrl, opts) {
     obj.https_url += obj.path
   }
 
-  obj.api_url = 'https://' + obj.apiHost + '/repos/' + obj.user + '/' + obj.repo
+  obj.api_url = `https://${obj.apiHost}/repos/${obj.user}/${obj.repo}`
 
   return obj
 }
