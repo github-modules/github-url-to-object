@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha && standard",
-    "build": "browserify index.js --standalone gh > dist/gh.js",
+    "build": "browserify index.js --standalone gh | buble > dist/gh.js",
     "deploy": "npm run build && git subtree push --prefix dist origin gh-pages && open https://zeke.github.io/github-url-to-object"
   },
   "website": "https://zeke.github.io/github-url-to-object",
@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "browserify": "^13.0.1",
+    "buble": "^0.15.2",
     "mocha": "^2.5.3",
     "standard": "^7.1.2",
     "uglify-js": "^2.4.15"
