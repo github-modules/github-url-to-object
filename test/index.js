@@ -1,7 +1,7 @@
 /* globals before, describe, it */
 
 var assert = require('assert')
-var gh = require('../index')
+var gh = require('..')
 
 describe('github-url-to-object', function () {
   describe('shorthand', function () {
