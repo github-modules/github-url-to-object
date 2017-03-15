@@ -2,10 +2,10 @@
   "name": "github-url-to-object",
   "version": "3.0.0",
   "description": "Extract user, repo, and other interesting properties from GitHub URLs",
-  "main": "index.js",
+  "main": "dist/commonjs.js",
   "scripts": {
     "test": "mocha && standard",
-    "build": "browserify index.js --standalone gh > dist/gh.js",
+    "build": "browserify index.js --standalone gh | buble > dist/gh.js; buble index.js > dist/commonjs.js",
     "deploy": "npm run build && git subtree push --prefix dist origin gh-pages && open https://zeke.github.io/github-url-to-object"
   },
   "website": "https://zeke.github.io/github-url-to-object",
@@ -23,11 +23,15 @@
   "bugs": {
     "url": "https://github.com/zeke/github-url-to-object/issues"
   },
+  "browser": {
+    "url": "./url-browser"
+  },
   "dependencies": {
     "is-url": "^1.1.0"
   },
   "devDependencies": {
     "browserify": "^13.0.1",
+    "buble": "^0.15.2",
     "mocha": "^2.5.3",
     "standard": "^7.1.2",
     "uglify-js": "^2.4.15"
