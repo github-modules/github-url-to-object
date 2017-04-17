@@ -106,6 +106,14 @@ describe('github-url-to-object', function () {
   })
 
   describe('http', function () {
+    var input
+    var obj
+
+    beforeEach(function () {
+      obj = null
+      input = {}
+    })
+
     it('supports http URLs', function () {
       var obj = gh('http://github.com/zeke/outlet.git')
       assert.equal(obj.user, 'zeke')
@@ -142,13 +150,56 @@ describe('github-url-to-object', function () {
     })
 
     it('resolves tree-style URLS for branches other than master', function () {
-      var obj = gh('https://github.com/zeke/outlet/tree/other-branch')
-      assert.equal(obj.branch, 'other-branch')
+      input = {
+        branch: 'other-branch'
+      }
+      input.https_url = 'https://github.com/zeke/outlet/tree/' + input.branch
+
+      obj = gh(input.https_url)
+
+      assert.equal(obj.branch, input.branch)
+      // Catch, for example, mutating "tree" to "blob".
+      assert.equal(obj.https_url, input.https_url)
+    })
+
+    it('resolves tree-style URLS for single-character branches', function () {
+      input = {
+        repo: 'zeke/outlet',
+        branch: 'x'
+      }
+      input.https_url =
+        'https://github.com/' +
+        input.repo +
+        '/tree/' +
+        input.branch
+
+      obj = gh(input.https_url)
+      assert.equal(obj.branch, input.branch)
+      assert.equal(obj.https_url, input.https_url)
     })
 
     it('resolves URLS for branches containing /', function () {
       var obj = gh('https://github.com/zeke/outlet/tree/feature/other-branch')
       assert.equal(obj.branch, 'feature/other-branch')
+    })
+
+    it('resolves URLS for "branches" containing multiple /', function () {
+      input = {
+        // Is it:
+        // * branch = 'x', path = 'y/z'
+        // * branch = 'x/y', path = 'z'
+        // * branch = 'xyz', path = null
+        // ?
+        repo_path: 'x/y/z'
+      }
+
+      input.https_url = 'https://github.com/zeke/outlet/tree/' +
+        input.repo_path
+
+      obj = gh(input.https_url)
+
+      assert.equal(obj.branch, input.repo_path)
+      assert.equal(obj.https_url, input.https_url)
     })
 
     it('resolves URLS for branches containing .', function () {
