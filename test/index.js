@@ -295,6 +295,9 @@ describe('github-url-to-object', function () {
       assert.equal(gh(null), null)
       assert.equal(gh(undefined), null)
       assert.equal(gh(''), null)
+      assert.equal(gh({url: '', type: 'git'}), null)
+      assert.equal(gh({url: null, type: 'git'}), null)
+      assert.equal(gh({url: undefined, type: 'git'}), null)
     })
 
     it('returns null if hostname is not github.com', function () {
