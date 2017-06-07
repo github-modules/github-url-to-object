@@ -13,6 +13,8 @@ module.exports = function (repoUrl, opts) {
   // (common practice in package.json files)
   if (repoUrl.url) { repoUrl = repoUrl.url }
 
+  if (typeof repoUrl !== 'string') { return null }
+
   var shorthand = repoUrl.match(/^([\w-_]+)\/([\w-_\.]+)#?([\w-_\.]+)?$/)
   var mediumhand = repoUrl.match(/^github:([\w-_]+)\/([\w-_\.]+)#?([\w-_\.]+)?$/)
   var antiquated = repoUrl.match(/^git@[\w-_\.]+:([\w-_]+)\/([\w-_\.]+)$/)
