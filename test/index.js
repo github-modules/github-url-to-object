@@ -64,7 +64,7 @@ describe('github-url-to-object', function () {
       var obj = gh('git@github.com:heroku/heroku-flags.git')
       assert.equal(obj.branch, 'master')
     })
-    
+
     it('supports git+ssh:// URLs', function () {
       var obj = gh('git+ssh://git@github.com/foo/bar.git')
       assert.equal(obj.user, 'foo')
