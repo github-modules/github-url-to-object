@@ -2,7 +2,7 @@
 
 var isUrl = require('is-url')
 
-var laxUrlRegex = /(?:(?:[a-z]+:)?[/][/])?([^/]+)([/][^?#]+)/
+var laxUrlRegex = /(?:(?:[^:]+:)?[/][/])?(?:.+@)?([^/]+)([/][^?#]+)/
 
 module.exports = function (repoUrl, opts) {
   var obj = {}
