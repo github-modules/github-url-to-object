@@ -24,6 +24,28 @@ describe('github-url-to-object', function () {
       assert.equal(obj.repo, 'repo')
       assert.equal(obj.branch, 'master')
     })
+
+    it('is not vulnerable to REDOS', function () {
+      var prefix = 'a/a'
+      var pump = 'a'
+      var suffix = 'a/'
+
+      var attackString = prefix
+      for (var i = 0; i < 25000; i++) {
+        attackString += pump
+      }
+      attackString += suffix
+
+      console.log('matching')
+      var before = process.hrtime()
+      var obj = gh(attackString)
+      var elapsed = process.hrtime(before)
+
+      // Invalid input so should be rejected...
+      assert.equal(obj, null)
+      // ...but how quickly?
+      assert.equal(elapsed[0], 0)
+    })
   })
 
   describe('mediumhand', function () {
@@ -50,6 +72,27 @@ describe('github-url-to-object', function () {
     it('rejects bitbucket', function () {
       var obj = gh('bitbucket:user/repo')
       assert.equal(obj, null)
+    })
+
+    it('is not vulnerable to REDOS', function () {
+      var prefix = 'github:a/a'
+      var pump = 'a'
+      var suffix = 'ub.:'
+
+      var attackString = prefix
+      for (var i = 0; i < 25000; i++) {
+        attackString += pump
+      }
+      attackString += suffix
+
+      var before = process.hrtime()
+      var obj = gh(attackString)
+      var elapsed = process.hrtime(before)
+
+      // Invalid input so should be rejected...
+      assert.equal(obj, null)
+      // ...but how quickly?
+      assert.equal(elapsed[0], 0)
     })
   })
 
