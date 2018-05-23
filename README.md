@@ -57,7 +57,10 @@ Here's what you'll get:
 The shorthand form lets you specify a branch:
 
 ```js
-  gh('github:monkey/business#nachos')
+gh('github:monkey/business#nachos')
+```
+
+```js
 {
   user: 'monkey',
   repo: 'business',
@@ -79,7 +82,7 @@ If you're using GitHub Enterprise, pass the `enterprise` option to allow
 your non-`github.com` URL to be parsed:
 
 ```js
-gh('https://ghe.example.com:heroku/heroku-flags.git', {enterprise: true})
+gh('https://ghe.example.com:heroku/heroku-flags.git', { enterprise: true })
 ```
 
 ## Test
