@@ -57,7 +57,10 @@ Here's what you'll get:
 The shorthand form lets you specify a branch:
 
 ```js
-  gh('github:monkey/business#nachos')
+gh('github:monkey/business#nachos')
+```
+
+```js
 {
   user: 'monkey',
   repo: 'business',
