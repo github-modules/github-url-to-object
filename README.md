@@ -12,7 +12,7 @@ Check out the demo at [zeke.github.io/github-url-to-object](https://zeke.github.
 For Node.js or Browserify usage:
 
 ```sh
-npm install github-url-to-object --save
+npm i github-url-to-object
 ```
 
 For bower usage:
@@ -26,7 +26,7 @@ bower install github-url-to-object
 Use whatever flavor of GitHub URL you like:
 
 ```js
-var gh = require('github-url-to-object')
+const gh = require('github-url-to-object')
 
 gh('github:monkey/business')
 gh('https://github.com/monkey/business')
