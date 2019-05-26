@@ -179,6 +179,12 @@ describe('github-url-to-object', function () {
       assert.equal(obj.repo, 'ruby-rails-sample')
     })
 
+    it('supports deep URLs with encoded branch names', function () {
+      var obj = gh('https://github.com/sunlei4076/gulp-rev/tree/v%3D')
+      assert.equal(obj.user, 'sunlei4076')
+      assert.equal(obj.repo, 'gulp-rev')
+    })
+
     it("doesn't require .git extension", function () {
       var obj = gh('https://github.com/zeke/outlet')
       assert.equal(obj.user, 'zeke')

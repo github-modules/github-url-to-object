@@ -4,7 +4,9 @@
   "description": "Extract user, repo, and other interesting properties from GitHub URLs",
   "main": "dist/commonjs.js",
   "scripts": {
+    "lint": "standard --fix",
     "test": "mocha && standard",
+    "pretest": "npm run build",
     "build": "browserify index.js --standalone gh | buble > dist/gh.js; buble index.js > dist/commonjs.js",
     "deploy": "npm run build && git subtree push --prefix dist origin gh-pages && open https://zeke.github.io/github-url-to-object"
   },

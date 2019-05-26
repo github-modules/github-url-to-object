@@ -58,10 +58,12 @@ module.exports = function (repoUrl, opts) {
     if (parts[3] && /^\/tree\/master\//.test(parts[3])) {
       obj.branch = 'master'
       obj.path = parts[3].replace(/\/$/, '')
-    } else if (parts[3]) {
-      obj.branch = parts[3].replace(/^\/tree\//, '').match(/[\w-_.]+\/{0,1}[\w-_]+/)[0]
     } else if (parts[4]) {
+      // extract branch from blob-style URLs
       obj.branch = parts[4].replace(/^\/blob\//, '').match(/[\w-_.]+\/{0,1}[\w-_]+/)[0]
+    } else if (parts[3]) {
+      // extract branch from tree-style URLs
+      obj.branch = parts[3].replace(/^\/tree\//, '').match(/[\w-_.]+\/{0,1}[\w-_]*/)[0]
     } else {
       obj.branch = 'master'
     }
