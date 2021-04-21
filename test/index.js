@@ -205,6 +205,26 @@ describe('github-url-to-object', function () {
       assert.equal(obj.branch, '2.1')
     })
 
+    it('resolves URLS for branches with single character names', function () {
+      var obj = gh('https://github.com/zeke/outlet/tree/q')
+      assert.strictEqual(obj.branch, 'q')
+    })
+
+    it('resolves URLS for branches with single digit names', function () {
+      var obj = gh('https://github.com/zeke/outlet/tree/0')
+      assert.strictEqual(obj.branch, '0')
+    })
+
+    it('resolves URLS for branches containing special characters', function () {
+      var obj = gh('https://github.com/zeke/outlet/tree/%3D%40')
+      assert.strictEqual(obj.branch, '%3D%40')
+    })
+
+    it('resolves URLS for branches containing special characters following after normal one', function () {
+      var obj = gh('https://github.com/zeke/outlet/tree/v%3D%40')
+      assert.strictEqual(obj.branch, 'v%3D%40')
+    })
+
     it('resolves blob-style URLS for branches other than master', function () {
       var obj = gh('https://github.com/zeke/ord/blob/new-style/.gitignore')
       assert.equal(obj.branch, 'new-style')

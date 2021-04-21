@@ -45,7 +45,7 @@ module.exports = function (repoUrl, opts) {
     if (!hostname) return null
     if (hostname !== 'github.com' && hostname !== 'www.github.com' && !opts.enterprise) return null
 
-    var parts = pathname.match(/^\/([\w-_]+)\/([\w-_\.]+)(\/tree\/[\w-_\.\/]+)?(\/blob\/[\w-_\.\/]+)?/)
+    var parts = pathname.match(/^\/([\w-_]+)\/([\w-_\.]+)(\/tree\/[%\w-_\.\/]+)?(\/blob\/[%\w-_\.\/]+)?/)
     // ([\w-_\.]+)
     if (!parts) return null
     obj.user = parts[1]
@@ -57,9 +57,11 @@ module.exports = function (repoUrl, opts) {
       obj.branch = 'master'
       obj.path = parts[3].replace(/\/$/, '')
     } else if (parts[3]) {
-      obj.branch = parts[3].replace(/^\/tree\//, '').match(/[\w-_.]+\/{0,1}[\w-_]+/)[0]
+      const branchMatch = parts[3].replace(/^\/tree\//, '').match(/[%\w-_.]*\/?[%\w-_]+/)
+      obj.branch = branchMatch && branchMatch[0]
     } else if (parts[4]) {
-      obj.branch = parts[4].replace(/^\/blob\//, '').match(/[\w-_.]+\/{0,1}[\w-_]+/)[0]
+      const branchMatch = parts[4].replace(/^\/blob\//, '').match(/[%\w-_.]*\/?[%\w-_]+/)
+      obj.branch = branchMatch && branchMatch[0]
     } else {
       obj.branch = 'master'
     }
